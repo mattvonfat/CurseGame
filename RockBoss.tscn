@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://RockBoss.gd" type="Script" id=1]
+[ext_resource path="res://images/enemy/rock_boss/rock_boss_attack.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://images/enemy/rock_boss/rock_boss_walk.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://images/enemy/rock_boss/rock_boss_idle.tres" type="SpriteFrames" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 24.0
+
+[node name="RockBoss" type="KinematicBody2D"]
+collision_layer = 17
+script = ExtResource( 1 )
+idle_animation = ExtResource( 4 )
+walk_animation = ExtResource( 3 )
+attack_animation = ExtResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 0 )
+shape = SubResource( 1 )
+
+[node name="MeleeAttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ThrowAttackTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="RockPos" type="Position2D" parent="."]
+position = Vector2( 23, 27 )
+
+[connection signal="timeout" from="MeleeAttackTimer" to="." method="_on_MeleeAttackTimer_timeout"]
+[connection signal="timeout" from="ThrowAttackTimer" to="." method="_on_ThrowAttackTimer_timeout"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Door Scrape Heavy Stone Loop 3 - QuickSounds.com.mp3-1e31bc92c4613c03756ccde0a9da8765.mp3str"
+
+[deps]
+
+source_file="res://sounds/Door Scrape Heavy Stone Loop 3 - QuickSounds.com.mp3"
+dest_files=[ "res://.import/Door Scrape Heavy Stone Loop 3 - QuickSounds.com.mp3-1e31bc92c4613c03756ccde0a9da8765.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
