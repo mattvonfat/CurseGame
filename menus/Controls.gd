@@ -1,11 +1,11 @@
 extends Control
 
-onready var up_key = $VBoxContainer/CenterContainer/Controls/HBoxContainer/VBoxContainer2/ForwardKeyButton/ForwardKey
-onready var down_key = $VBoxContainer/CenterContainer/Controls/HBoxContainer/VBoxContainer2/BackwardKeyButton/BackwardKey
-onready var left_key = $VBoxContainer/CenterContainer/Controls/HBoxContainer/VBoxContainer2/LeftKeyButton/LeftKey
-onready var right_key = $VBoxContainer/CenterContainer/Controls/HBoxContainer/VBoxContainer2/RightKeyButton/RightKey
-onready var shoot_key = $VBoxContainer/CenterContainer/Controls/HBoxContainer/VBoxContainer2/ShootKeyButton/ShootKey
-onready var convo_key = $VBoxContainer/CenterContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton/ConvoKey
+onready var up_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ForwardKeyButton/ForwardKey
+onready var down_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/BackwardKeyButton/BackwardKey
+onready var left_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/LeftKeyButton/LeftKey
+onready var right_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/RightKeyButton/RightKey
+onready var shoot_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ShootKeyButton/ShootKey
+onready var convo_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton/ConvoKey
 
 onready var key_wait_panel = $KeyWaitPanel
 
@@ -18,14 +18,18 @@ var button_indexes = { 1: "Left Mouse", 2: "Right Mouse", 3: "Middle Mouse" }
 var wait_key = false
 var control_item
 
+var changes = false
+
 func _ready():
 	key_wait_panel.hide()
 	control_labels = [ up_key, down_key, left_key, right_key, shoot_key, convo_key ]
 
 func update_keys():
+	changes = false
 	for control_index in range(0, control_labels.size()):
 		var action_list = InputMap.get_action_list(control_actions[control_index])
 		var action = action_list[0]
+		print(action)
 		if action is InputEventKey:
 			control_labels[control_index].set_text(OS.get_scancode_string(action.scancode))
 		elif action is InputEventMouseButton:
@@ -42,6 +46,7 @@ func _input(event):
 			InputMap.action_add_event(control_actions[control_item], event)
 			# update key text on menu
 			control_labels[control_item].set_text(OS.get_scancode_string(event.physical_scancode))
+			changes = true
 		
 		# check for mouse event
 		if event is InputEventMouseButton:
@@ -52,6 +57,7 @@ func _input(event):
 			InputMap.action_add_event(control_actions[control_item], event)
 			# update key text on menu
 			control_labels[control_item].set_text(button_indexes[event.button_index])
+			changes = true
 
 
 # called whenever user clicks to rebind a key
@@ -61,4 +67,4 @@ func _on_control_key_button_pressed(key:int):
 	control_item = key
 
 func _on_ReturnToMenuButton_pressed():
-	GameManager.return_to_menu()
+	GameManager.return_to_menu(changes)

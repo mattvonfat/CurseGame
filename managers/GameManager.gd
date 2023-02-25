@@ -17,6 +17,9 @@ onready var game_data : Resource = preload("res://scripts/level_data.tres")
 enum { HEALTH_DEGEN=0, REDUCED_SPEED, SLOWER_SHOOTING, MISS_CHANCE, ENEMY_DAMAGE }
 enum { SPLASH=0, MAIN_MENU, CONTROL_MENU, USER_INPUT, STORY, LEVEL_SELECT, LEVEL, END_STORY, DEAD, WIN }
 
+var control_actions = [ "move_up", "move_down", "move_left", "move_right", "shoot_gun", "convo_continue" ]
+var button_indexes = { 1: "Left Mouse", 2: "Right Mouse", 3: "Middle Mouse" }
+
 var nodes = ["Splash", "MainMenu", "Controls", "UserInfo", "Story", "LevelSelectScreen", "GameWorld"]
 
 var rng:RandomNumberGenerator
@@ -44,6 +47,58 @@ func _ready():
 	
 	#game_data = level_data_resource
 	game_state = SPLASH
+	
+	load_config()
+
+func load_config():
+	var config = ConfigFile.new()
+	var error = config.load("user://settings.cfg")
+	
+	if error != OK:
+		create_config_file(config)
+	else:
+		for control_index in range(0, control_actions.size()):
+			var control_type = config.get_value(control_actions[control_index], "type")
+			var control_key = config.get_value(control_actions[control_index], "key")
+			
+			if control_type == "key":
+				var event = InputEventKey.new()
+				event.scancode = control_key
+				InputMap.action_erase_events(control_actions[control_index])
+				InputMap.action_add_event(control_actions[control_index], event)
+			elif control_type == "mouse":
+				var event = InputEventMouseButton.new()
+				event.button_index = control_key
+				InputMap.action_erase_events(control_actions[control_index])
+				InputMap.action_add_event(control_actions[control_index], event)
+
+func create_config_file(config : ConfigFile):
+	for control_index in range(0, control_actions.size()):
+		var action_list = InputMap.get_action_list(control_actions[control_index])
+		var action = action_list[0]
+		if action is InputEventKey:
+			config.set_value(control_actions[control_index], "type", "key")
+			config.set_value(control_actions[control_index], "key", action.scancode)
+		elif action is InputEventMouseButton:
+			config.set_value(control_actions[control_index], "type", "mouse")
+			config.set_value(control_actions[control_index], "key", action.button_index)
+	config.save("user://settings.cfg")
+
+func save_settings():
+	var config = ConfigFile.new()
+	var error = config.load("user://settings.cfg")
+	
+	if error != OK:
+		print(error)
+	
+	for control_index in range(0, control_actions.size()):
+		var action_list = InputMap.get_action_list(control_actions[control_index])
+		var action = action_list[0]
+		if action is InputEventKey:
+			config.set_value(control_actions[control_index], "key", action.scancode)
+		elif action is InputEventMouseButton:
+			config.set_value(control_actions[control_index], "mouse", action.button_index)
+	config.save("user://settings.cfg")
 
 func splash_to_menu():
 	var splash_screen = get_tree().get_root().get_node("SplashScreen")
@@ -69,9 +124,11 @@ func go_to_controls_menu():
 	game_state = CONTROL_MENU
 
 # return to main menu from control menu
-func return_to_menu():
+func return_to_menu(changes:bool):
 	get_tree().get_root().remove_child(controls_menu_node)
 	get_tree().get_root().add_child(main_menu_node)
+	if changes == true:
+		save_settings()
 	game_state = MAIN_MENU
 
 # goes to story input when new game starts
