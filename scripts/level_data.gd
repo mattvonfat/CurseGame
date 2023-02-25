@@ -22,7 +22,7 @@ func generate_game():
 		
 		info["id"] = level_number
 		info["completed"] = false
-		info["data"] = generate_level()
+		info["data"] = generate_level(GameManager.rooms_per_level)
 		
 		var curse_number = rng.randi_range(0,GameData.Curses.size()-1)
 		while selected_curses.has(curse_number):
@@ -64,7 +64,7 @@ func set_level_complete(level_number) -> bool:
 
 
 
-func generate_level(number_of_rooms:int=8):
+func generate_level(number_of_rooms):
 	var level_data = []
 	var room_info
 	var entry_direction

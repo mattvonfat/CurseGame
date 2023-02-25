@@ -34,6 +34,7 @@ func update_keys():
 			control_labels[control_index].set_text(OS.get_scancode_string(action.scancode))
 		elif action is InputEventMouseButton:
 			control_labels[control_index].set_text(button_indexes[action.button_index])
+	$VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2/LevelRooms.set_value(GameManager.rooms_per_level)
 
 func _input(event):
 	if wait_key:
@@ -68,3 +69,9 @@ func _on_control_key_button_pressed(key:int):
 
 func _on_ReturnToMenuButton_pressed():
 	GameManager.return_to_menu(changes)
+
+
+func _on_LevelRooms_value_changed(value):
+	changes = true
+	print(value)
+	GameManager.rooms_per_level = value

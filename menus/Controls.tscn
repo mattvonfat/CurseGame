@@ -272,13 +272,14 @@ margin_right = 354.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 
-[node name="SpinBox" type="SpinBox" parent="VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2"]
+[node name="LevelRooms" type="SpinBox" parent="VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2"]
 margin_right = 100.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 22 )
 min_value = 5.0
 max_value = 30.0
 value = 8.0
+rounded = true
 align = 1
 
 [node name="SoundSettings" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
@@ -321,3 +322,4 @@ align = 1
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/RightKeyButton" to="." method="_on_control_key_button_pressed" binds= [ 3 ]]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ShootKeyButton" to="." method="_on_control_key_button_pressed" binds= [ 4 ]]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton" to="." method="_on_control_key_button_pressed" binds= [ 5 ]]
+[connection signal="value_changed" from="VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2/LevelRooms" to="." method="_on_LevelRooms_value_changed"]

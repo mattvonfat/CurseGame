@@ -41,6 +41,8 @@ var user_item
 
 var game_state
 
+var rooms_per_level = 8
+
 func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -71,6 +73,7 @@ func load_config():
 				event.button_index = control_key
 				InputMap.action_erase_events(control_actions[control_index])
 				InputMap.action_add_event(control_actions[control_index], event)
+		rooms_per_level = config.get_value("level_rooms", "number", rooms_per_level)
 
 func create_config_file(config : ConfigFile):
 	for control_index in range(0, control_actions.size()):
@@ -82,6 +85,7 @@ func create_config_file(config : ConfigFile):
 		elif action is InputEventMouseButton:
 			config.set_value(control_actions[control_index], "type", "mouse")
 			config.set_value(control_actions[control_index], "key", action.button_index)
+	config.set_value("level_rooms", "number", 8)
 	config.save("user://settings.cfg")
 
 func save_settings():
@@ -98,6 +102,8 @@ func save_settings():
 			config.set_value(control_actions[control_index], "key", action.scancode)
 		elif action is InputEventMouseButton:
 			config.set_value(control_actions[control_index], "mouse", action.button_index)
+	config.set_value("level_rooms", "number", rooms_per_level)
+	print(12345)
 	config.save("user://settings.cfg")
 
 func splash_to_menu():
