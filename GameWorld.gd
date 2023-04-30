@@ -34,6 +34,7 @@ var room_enemy_count : Array
 var room_doors : Array
 
 func _ready():
+	print("READY LEVEL")
 	GameManager.game = self
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -202,14 +203,17 @@ func update_visibility():
 
 func _on_BreakCheck_timeout():
 	var break_tile = GameManager.tile_break_check()
-	if break_tile == true:
-		var valid_tile = false
-		while valid_tile == false:
-			var tile_num = rng.randi_range(0,empty_tiles.size()-1)
-			var selected_tile = empty_tiles[tile_num]
-			if selected_tile.get_room_type() != "TREASURE" and visited_rooms.has(selected_tile.get_room_number()):
-				selected_tile.start_break()
-				valid_tile = true
+	
+	if visited_rooms.size() > 0:
+		if break_tile == true:
+			print(empty_tiles.size())
+			var valid_tile = false
+			while valid_tile == false:
+				var tile_num = rng.randi_range(0,empty_tiles.size()-1)
+				var selected_tile = empty_tiles[tile_num]
+				if selected_tile.get_room_type() != "TREASURE" and visited_rooms.has(selected_tile.get_room_number()):
+					selected_tile.start_break()
+					valid_tile = true
 		
 
 

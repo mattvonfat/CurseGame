@@ -25,17 +25,6 @@ var curses
 
 var tooltip_shown = false
 
-func _ready():
-	curse_icons[0].connect("mouse_entered", self, "_on_curse_icon_mouse_entered", [0])
-	curse_icons[1].connect("mouse_entered", self, "_on_curse_icon_mouse_entered", [1])
-	curse_icons[2].connect("mouse_entered", self, "_on_curse_icon_mouse_entered", [2])
-	
-	curse_icons[0].connect("mouse_exited", self, "_on_curse_icon_mouse_exited", [0])
-	curse_icons[1].connect("mouse_exited", self, "_on_curse_icon_mouse_exited", [1])
-	curse_icons[2].connect("mouse_exited", self, "_on_curse_icon_mouse_exited", [2])
-	
-	curse_tooltip.hide()
-
 func _process(delta):
 	curse_tooltip.set_position(get_viewport().get_mouse_position())
 
@@ -68,15 +57,9 @@ func initialise(player_reference):
 			ENEMY_DAMAGE:
 				curse_icons[curse_count].set_texture(enemy_damage_icon)
 		
+		curse_icons[curse_count].set_tooltip(GameData.get_curse_tooltip(curse))
 		curse_count += 1
 
 func _on_player_health_update(new_health):
 	health_bar.set_value(new_health)	
 	health_text.set_text("%s/%s" % [new_health, max_health])
-
-func _on_curse_icon_mouse_entered(id):
-	curse_tooltip.set_text("BLA %s" % id)
-	curse_tooltip.show()
-
-func _on_curse_icon_mouse_exited(id):
-	curse_tooltip.hide()

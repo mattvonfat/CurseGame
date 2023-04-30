@@ -28,5 +28,8 @@ func get_curse_name(curse_id):
 func get_curse_description(curse_id):
 	return curse_data[curse_id]["description"]
 
+func get_curse_tooltip(curse_id):
+	return curse_data[curse_id]["tooltip"]
+
 func get_treasure_icon(treasure_id):
 	return treasure_list[treasure_id]["image"]
