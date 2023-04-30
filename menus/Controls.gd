@@ -29,7 +29,6 @@ func update_keys():
 	for control_index in range(0, control_labels.size()):
 		var action_list = InputMap.get_action_list(control_actions[control_index])
 		var action = action_list[0]
-		print(action)
 		if action is InputEventKey:
 			control_labels[control_index].set_text(OS.get_scancode_string(action.scancode))
 		elif action is InputEventMouseButton:

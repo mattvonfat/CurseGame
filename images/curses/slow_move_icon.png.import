@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/enemy_test.png-b785e511d7f942c626e80ff5a2c52792.stex"
+path="res://.import/slow_move_icon.png-bf7814d2183822a4e0caed55003b3455.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/enemy_test.png"
-dest_files=[ "res://.import/enemy_test.png-b785e511d7f942c626e80ff5a2c52792.stex" ]
+source_file="res://images/curses/slow_move_icon.png"
+dest_files=[ "res://.import/slow_move_icon.png-bf7814d2183822a4e0caed55003b3455.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://DeathScreen.gd" type="Script" id=1]
+[ext_resource path="res://menus/DeathScreen.gd" type="Script" id=1]
 [ext_resource path="res://Archeologicaps.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://images/story/death_screen.png" type="Texture" id=3]
 

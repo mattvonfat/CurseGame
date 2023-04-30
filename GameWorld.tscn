@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://PauseMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://menus/PauseMenu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/curses/vamp_curse_icon.png" type="Texture" id=2]
 [ext_resource path="res://GameWorld.gd" type="Script" id=3]
 [ext_resource path="res://GUI.gd" type="Script" id=4]
+[ext_resource path="res://images/curses/weakness_curse_icon.png" type="Texture" id=5]
+[ext_resource path="res://images/curses/slow_shoot_icon.png" type="Texture" id=6]
+[ext_resource path="res://images/curses/slow_move_icon.png" type="Texture" id=7]
+[ext_resource path="res://images/curses/miss_chance_icon.png" type="Texture" id=8]
 
 [node name="GameWorld" type="Node2D"]
 script = ExtResource( 3 )
@@ -22,6 +27,11 @@ autostart = true
 
 [node name="GUI" type="CanvasLayer" parent="."]
 script = ExtResource( 4 )
+health_degen_icon = ExtResource( 2 )
+slow_movement_icon = ExtResource( 7 )
+slow_shooting_icon = ExtResource( 6 )
+miss_chance_icon = ExtResource( 8 )
+enemy_damage_icon = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
 anchor_right = 1.0
@@ -94,5 +104,9 @@ margin_left = 16.0
 margin_right = 16.0
 
 [node name="PauseMenu" parent="GUI" instance=ExtResource( 1 )]
+
+[node name="CurseTooltip" type="Label" parent="GUI"]
+margin_right = 40.0
+margin_bottom = 14.0
 
 [connection signal="timeout" from="BreakCheck" to="." method="_on_BreakCheck_timeout"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://entities/enemies/BossMonster.gd" type="Script" id=1]
+[ext_resource path="res://entities/mummy_idle_animation.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://entities/mummy_attack_animation.tres" type="SpriteFrames" id=3]
+[ext_resource path="res://entities/mummy_walk_animation.tres" type="SpriteFrames" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 28.1603
+
+[node name="BossMonster" type="KinematicBody2D"]
+collision_layer = 17
+script = ExtResource( 1 )
+idle_animation = ExtResource( 2 )
+walk_animation = ExtResource( 4 )
+attack_animation = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1, 0 )
+shape = SubResource( 1 )
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0

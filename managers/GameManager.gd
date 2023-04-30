@@ -1,16 +1,16 @@
 extends Node
 
-onready var main_menu_scene : PackedScene = preload("res://MainMenu.tscn")
+onready var main_menu_scene : PackedScene = preload("res://menus/MainMenu.tscn")
 onready var controls_menu_scene : PackedScene = preload("res://menus/Controls.tscn")
-onready var user_input_scene : PackedScene = preload("res://UserInfo.tscn")
-onready var story_scene : PackedScene = preload("res://Story.tscn")
-onready var level_select_scene : PackedScene = preload("res://LevelSelectScreen.tscn")
+onready var user_input_scene : PackedScene = preload("res://menus/UserInfo.tscn")
+onready var story_scene : PackedScene = preload("res://menus/Story.tscn")
+onready var level_select_scene : PackedScene = preload("res://menus/LevelSelectScreen.tscn")
 onready var game_world_scene : PackedScene = preload("res://GameWorld.tscn")
 onready var player_scene : PackedScene = preload("res://Player.tscn")
-onready var bullet_scene : PackedScene = preload("res://Bullet.tscn")
+onready var bullet_scene : PackedScene = preload("res://entities/Bullet.tscn")
 onready var rock_scene : PackedScene = preload("res://Rock.tscn")
-onready var death_screen_scene : PackedScene = preload("res://DeathScreen.tscn")
-onready var win_screen_scene : PackedScene = preload("res://WinScreen.tscn")
+onready var death_screen_scene : PackedScene = preload("res://menus/DeathScreen.tscn")
+onready var win_screen_scene : PackedScene = preload("res://menus/WinScreen.tscn")
 
 onready var game_data : Resource = preload("res://scripts/level_data.tres")
 
@@ -25,7 +25,6 @@ var nodes = ["Splash", "MainMenu", "Controls", "UserInfo", "Story", "LevelSelect
 var rng:RandomNumberGenerator
 
 var game
-#var game_data
 var player
 
 var paused = false
@@ -47,10 +46,9 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
-	#game_data = level_data_resource
-	game_state = SPLASH
-	
 	load_config()
+	
+	game_state = SPLASH
 
 func load_config():
 	var config = ConfigFile.new()
@@ -103,7 +101,6 @@ func save_settings():
 		elif action is InputEventMouseButton:
 			config.set_value(control_actions[control_index], "mouse", action.button_index)
 	config.set_value("level_rooms", "number", rooms_per_level)
-	print(12345)
 	config.save("user://settings.cfg")
 
 func splash_to_menu():
@@ -254,7 +251,7 @@ func level_completed():
 		return_to_level_select()
 	
 
-func win_game():	
+func win_game():
 	var game_world_node = get_tree().get_root().get_node("GameWorld")
 	var new_win_screen = win_screen_scene.instance()
 	

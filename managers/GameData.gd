@@ -15,11 +15,11 @@ onready var treasure_list = [
 ]
 
 onready var curse_data = {
-	Curses.HEALTH_DEGEN: { "name": "Health Degen", "description": "Health reduces by 1 every second." },
-	Curses.REDUCED_SPEED: { "name": "Reduced Speed", "description": "Movement speed is reduced." },
-	Curses.SLOWER_SHOOTING: { "name": "Slower Shooting", "description": "Shooting speed is reduced." },
-	Curses.MISS_CHANCE: { "name": "Miss Chance", "description": "Chance that enemies aren't hit when shot." },
-	Curses.ENEMY_DAMAGE: { "name": "Curse of Weakness", "description": " The vistim becomes frail, increasing the damage recived by enemies" }
+	Curses.HEALTH_DEGEN: { "name": "Vampiric Mark", "description": "A vampiric curse gradually drains the victim's lifeforce until they become a withered husk.", "tooltip": "Losing 1 health per second." },
+	Curses.REDUCED_SPEED: { "name": "Crippling Burden", "description": "The victim is burdened by an illusionary weight, causing them to move slower.", "tooltip": "Movement speed reduced." },
+	Curses.SLOWER_SHOOTING: { "name": "Slower Shooting", "description": "Shooting speed is reduced.", "tooltip": "Shooting rate is reduced." },
+	Curses.MISS_CHANCE: { "name": "Miss Chance", "description": "Chance that enemies aren't hit when shot.", "tooltip": "Have a chance to miss shots." },
+	Curses.ENEMY_DAMAGE: { "name": "Curse of Weakness", "description": "The victim becomes frail, increasing the damage recived by enemies", "tooltip": "Taking increased damage from enemies." }
 }
 
 func get_curse_name(curse_id):
@@ -27,3 +27,6 @@ func get_curse_name(curse_id):
 
 func get_curse_description(curse_id):
 	return curse_data[curse_id]["description"]
+
+func get_treasure_icon(treasure_id):
+	return treasure_list[treasure_id]["image"]

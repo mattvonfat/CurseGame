@@ -1,11 +1,9 @@
 extends Node2D
 
-onready var boss_scene = preload("res://BossMonster.tscn")
-onready var rock_boss_scene = preload("res://RockBoss.tscn")
-onready var enemy_scene = preload("res://entities/Enemy.tscn")
+onready var boss_scene = preload("res://entities/enemies/BossMonster.tscn")
+onready var rock_boss_scene = preload("res://entities/enemies/RockBoss.tscn")
+onready var enemy_scene = preload("res://entities/enemies/Enemy.tscn")
 onready var treasure_scene = preload("res://Treasure.tscn")
-
-enum { NORTH=0, SOUTH=1, EAST=2, WEST=3 }
 
 onready var floor_tile_scene = preload("res://tiles/FloorTile.tscn")
 onready var wall_tile_scene = preload("res://tiles/WallTile.tscn")
@@ -18,7 +16,9 @@ onready var pickup_collection = $Pickups
 onready var player_collection = $Player
 onready var gui = $GUI
 
-onready var player
+enum { NORTH=0, SOUTH=1, EAST=2, WEST=3 }
+
+var player
 
 var rng:RandomNumberGenerator
 
