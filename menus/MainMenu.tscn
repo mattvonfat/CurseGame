@@ -69,7 +69,7 @@ margin_top = 53.0
 margin_right = 110.0
 margin_bottom = 93.0
 rect_min_size = Vector2( 110, 40 )
-text = "Controls"
+text = "Settings"
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer/Controls" to="." method="_on_Controls_pressed"]
