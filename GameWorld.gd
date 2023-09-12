@@ -34,7 +34,6 @@ var room_enemy_count : Array
 var room_doors : Array
 
 func _ready():
-	print("READY LEVEL")
 	GameManager.game = self
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -179,7 +178,6 @@ func load_level(data):
 	
 	update_visibility()
 	gui.initialise(player)
-	$AudioStreamPlayer.set_volume_db(linear2db(GameManager.music_volume))
 	$AudioStreamPlayer.play()
 
 func update_visibility():
@@ -269,4 +267,4 @@ func remove_player_node():
 
 # pause menu closed so update the volume in case they changed it
 func _on_update_settings():
-	$AudioStreamPlayer.set_volume_db(linear2db(GameManager.music_volume))
+	GameManager.update_volumes()

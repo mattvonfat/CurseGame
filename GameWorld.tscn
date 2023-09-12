@@ -112,5 +112,6 @@ margin_bottom = 14.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "Music"
 
 [connection signal="timeout" from="BreakCheck" to="." method="_on_BreakCheck_timeout"]

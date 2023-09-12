@@ -10,6 +10,8 @@ onready var shoot_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HB
 onready var convo_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton/ConvoKey
 
 onready var music_volume_slider = $VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/MusicSlider
+onready var sfx_volume_slider = $VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/SFXSlider
+onready var gui_volume_slider = $VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/GUISlider3
 
 onready var key_wait_panel = $KeyWaitPanel
 
@@ -29,7 +31,6 @@ var is_pause_menu:bool = false
 func _ready():
 	key_wait_panel.hide()
 	control_labels = [ up_key, down_key, left_key, right_key, shoot_key, convo_key ]
-	music_volume_slider.set_step(0.001)
 	
 func update_keys(pause_menu:bool=false):
 	changes = false
@@ -42,6 +43,8 @@ func update_keys(pause_menu:bool=false):
 			control_labels[control_index].set_text(button_indexes[action.button_index])
 	$VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2/LevelRooms.set_value(GameManager.rooms_per_level)
 	music_volume_slider.set_value(GameManager.music_volume)
+	sfx_volume_slider.set_value(GameManager.sfx_volume)
+	gui_volume_slider.set_value(GameManager.gui_volume)
 	
 	# added this in so i can reuse the controls menu on the pause screen
 	# need to stop it asking GameManager to go back to the main menu
@@ -100,3 +103,21 @@ func _on_LevelRooms_value_changed(value):
 func _on_Music_Slider_value_changed(value):
 	GameManager.music_volume = value
 	changes = true
+
+
+func _on_GUISlider3_value_changed(value):
+	GameManager.gui_volume = value
+	changes = true
+
+
+func _on_SFXSlider_value_changed(value):
+	GameManager.sfx_volume = value
+	changes = true
+
+
+func _on_ReturnToMenuButton_mouse_entered():
+	$AudioStreamPlayer.play()
+
+
+func _on_button_mouse_entered():
+	$AudioStreamPlayer.play()

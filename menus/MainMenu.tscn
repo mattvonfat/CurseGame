@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Archeologicaps.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://menus/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://images/gui/menu_bg.png" type="Texture" id=3]
+[ext_resource path="res://sounds/rollover2.wav" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -71,5 +72,11 @@ margin_bottom = 93.0
 rect_min_size = Vector2( 110, 40 )
 text = "Settings"
 
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "GUI"
+
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer/NewGame" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer/NewGame" to="." method="_on_NewGame_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer/Controls" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer/Controls" to="." method="_on_Controls_pressed"]

@@ -41,7 +41,9 @@ var user_item
 var game_state
 
 var rooms_per_level = 8
-var music_volume = 100
+var music_volume = 0.25
+var sfx_volume = 0.25
+var gui_volume = 0.25
 
 func _ready():
 	rng = RandomNumberGenerator.new()
@@ -50,6 +52,7 @@ func _ready():
 	load_config()
 	
 	game_state = SPLASH
+	update_volumes()
 
 func load_config():
 	var config = ConfigFile.new()
@@ -73,7 +76,9 @@ func load_config():
 				InputMap.action_erase_events(control_actions[control_index])
 				InputMap.action_add_event(control_actions[control_index], event)
 		rooms_per_level = config.get_value("level_rooms", "number", rooms_per_level)
-		music_volume = config.get_value("music_volume", "volume", music_volume)
+		music_volume = config.get_value("sound_volume", "music", music_volume)
+		sfx_volume = config.get_value("sound_volume", "sfx", sfx_volume)
+		gui_volume = config.get_value("sound_volume", "gui", gui_volume)
 
 func create_config_file(config : ConfigFile):
 	for control_index in range(0, control_actions.size()):
@@ -86,7 +91,9 @@ func create_config_file(config : ConfigFile):
 			config.set_value(control_actions[control_index], "type", "mouse")
 			config.set_value(control_actions[control_index], "key", action.button_index)
 	config.set_value("level_rooms", "number", rooms_per_level)
-	config.set_value("music_volume", "volume", music_volume)
+	config.set_value("sound_volume", "music", music_volume)
+	config.set_value("sound_volume", "sfx", sfx_volume)
+	config.set_value("sound_volume", "gui", gui_volume)
 	config.save("user://settings.cfg")
 
 func save_settings():
@@ -104,8 +111,12 @@ func save_settings():
 		elif action is InputEventMouseButton:
 			config.set_value(control_actions[control_index], "mouse", action.button_index)
 	config.set_value("level_rooms", "number", rooms_per_level)
-	config.set_value("music_volume", "volume", music_volume)
+	config.set_value("sound_volume", "music", music_volume)
+	config.set_value("sound_volume", "sfx", sfx_volume)
+	config.set_value("sound_volume", "gui", gui_volume)
 	config.save("user://settings.cfg")
+	
+	update_volumes()
 
 func splash_to_menu():
 	var splash_screen = get_tree().get_root().get_node("SplashScreen")
@@ -350,3 +361,7 @@ func game_unpaused():
 func is_game_paused():
 	return paused
 
+func update_volumes():
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear2db(music_volume))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear2db(sfx_volume))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("GUI"), linear2db(gui_volume))

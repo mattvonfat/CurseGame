@@ -7,3 +7,7 @@ func _on_NewGame_pressed():
 
 func _on_Controls_pressed():
 	GameManager.go_to_controls_menu()
+
+
+func _on_button_mouse_entered():
+	$ButtonHover.play()
