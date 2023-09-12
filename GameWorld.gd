@@ -38,6 +38,7 @@ func _ready():
 	GameManager.game = self
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
+	$GUI/PauseMenu.connect("update_settings", self, "_on_update_settings")
 
 func load_level(data):	
 	var new_tile
@@ -264,3 +265,8 @@ func add_player_node(player_node):
 
 func remove_player_node():
 	player_collection.remove_child(player)
+
+
+# pause menu closed so update the volume in case they changed it
+func _on_update_settings():
+	$AudioStreamPlayer.set_volume_db(linear2db(GameManager.music_volume))

@@ -1,5 +1,7 @@
 extends Control
 
+signal leave_menu
+
 onready var up_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ForwardKeyButton/ForwardKey
 onready var down_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/BackwardKeyButton/BackwardKey
 onready var left_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/LeftKeyButton/LeftKey
@@ -7,7 +9,6 @@ onready var right_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HB
 onready var shoot_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ShootKeyButton/ShootKey
 onready var convo_key = $VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton/ConvoKey
 
-onready var music_volume_label = $VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer3/TextureButton2/MusicVolumeLabel
 onready var music_volume_slider = $VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/MusicSlider
 
 onready var key_wait_panel = $KeyWaitPanel
@@ -23,13 +24,14 @@ var control_item
 
 var changes = false
 
+var is_pause_menu:bool = false
+
 func _ready():
 	key_wait_panel.hide()
 	control_labels = [ up_key, down_key, left_key, right_key, shoot_key, convo_key ]
 	music_volume_slider.set_step(0.001)
-	music_volume_label.set_text("%s%%" % (floor(music_volume_slider.value*200)))# multiply by 200 as it's between 0 and 0.5, so need to double it for percentage
-
-func update_keys():
+	
+func update_keys(pause_menu:bool=false):
 	changes = false
 	for control_index in range(0, control_labels.size()):
 		var action_list = InputMap.get_action_list(control_actions[control_index])
@@ -40,6 +42,11 @@ func update_keys():
 			control_labels[control_index].set_text(button_indexes[action.button_index])
 	$VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2/LevelRooms.set_value(GameManager.rooms_per_level)
 	music_volume_slider.set_value(GameManager.music_volume)
+	
+	# added this in so i can reuse the controls menu on the pause screen
+	# need to stop it asking GameManager to go back to the main menu
+	if pause_menu == true:
+		is_pause_menu = true
 
 func _input(event):
 	if wait_key:
@@ -73,7 +80,14 @@ func _on_control_key_button_pressed(key:int):
 	control_item = key
 
 func _on_ReturnToMenuButton_pressed():
-	GameManager.return_to_menu(changes)
+	if is_pause_menu == true:
+		# if we're in the pause menu then emit the leave menu signal but also check if we need to save and if so do it
+		# this is a quick fix as I don't want to rewrite everything and just want to add this in the pause menu
+		if changes == true:
+			GameManager.save_settings()
+		emit_signal("leave_menu")
+	else:
+		GameManager.return_to_menu(changes)
 
 
 func _on_LevelRooms_value_changed(value):
@@ -82,6 +96,5 @@ func _on_LevelRooms_value_changed(value):
 
 
 func _on_Music_Slider_value_changed(value):
-	music_volume_label.set_text("%s%%" % (floor(value*200))) # multiply by 200 as it's between 0 and 0.5, so need to double it for percentage
 	GameManager.music_volume = value
 	changes = true
