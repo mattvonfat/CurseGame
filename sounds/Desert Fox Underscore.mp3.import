@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Desert Fox Underscore.mp3-5a14de04adc7d8cfc66561ab1c4dde63.mp3str"
+
+[deps]
+
+source_file="res://sounds/Desert Fox Underscore.mp3"
+dest_files=[ "res://.import/Desert Fox Underscore.mp3-5a14de04adc7d8cfc66561ab1c4dde63.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

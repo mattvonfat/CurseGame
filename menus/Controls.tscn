@@ -45,9 +45,9 @@ size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer"]
 margin_left = 143.0
-margin_top = 106.0
+margin_top = 79.0
 margin_right = 497.0
-margin_bottom = 340.0
+margin_bottom = 367.0
 
 [node name="Controls" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 margin_right = 354.0
@@ -263,6 +263,7 @@ texture = ExtResource( 2 )
 [node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer/TextureButton"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 5.0
 text = "Number of rooms per level"
 valign = 1
 
@@ -282,10 +283,76 @@ value = 8.0
 rounded = true
 align = 1
 
-[node name="SoundSettings" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
 margin_top = 234.0
 margin_right = 354.0
-margin_bottom = 234.0
+margin_bottom = 244.0
+custom_constants/margin_top = 10
+
+[node name="SoundSettings" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer"]
+margin_top = 248.0
+margin_right = 354.0
+margin_bottom = 288.0
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings"]
+margin_right = 354.0
+margin_bottom = 14.0
+text = "Audio Settings"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings"]
+margin_top = 18.0
+margin_right = 354.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer"]
+margin_right = 100.0
+margin_bottom = 22.0
+
+[node name="TextureButton" type="TextureRect" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer"]
+margin_right = 100.0
+margin_bottom = 22.0
+texture = ExtResource( 3 )
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer/TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+text = "Music Volume"
+valign = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer"]
+margin_left = 104.0
+margin_right = 250.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2"]
+margin_right = 146.0
+margin_bottom = 22.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 0.5
+value = 0.5
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer"]
+margin_left = 254.0
+margin_right = 354.0
+margin_bottom = 22.0
+
+[node name="TextureButton2" type="TextureRect" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer3"]
+margin_right = 100.0
+margin_bottom = 22.0
+texture = ExtResource( 3 )
+
+[node name="MusicVolumeLabel" type="Label" parent="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer3/TextureButton2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+align = 1
+valign = 1
 
 [node name="KeyWaitPanel" type="CenterContainer" parent="."]
 visible = false
@@ -323,3 +390,4 @@ align = 1
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ShootKeyButton" to="." method="_on_control_key_button_pressed" binds= [ 4 ]]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton" to="." method="_on_control_key_button_pressed" binds= [ 5 ]]
 [connection signal="value_changed" from="VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2/LevelRooms" to="." method="_on_LevelRooms_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/MusicSlider" to="." method="_on_Music_Slider_value_changed"]

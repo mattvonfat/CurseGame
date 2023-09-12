@@ -178,6 +178,8 @@ func load_level(data):
 	
 	update_visibility()
 	gui.initialise(player)
+	$AudioStreamPlayer.set_volume_db(linear2db(GameManager.music_volume))
+	$AudioStreamPlayer.play()
 
 func update_visibility():
 	var tiles = tile_collection.get_children()
