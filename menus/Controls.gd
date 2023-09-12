@@ -47,6 +47,8 @@ func update_keys(pause_menu:bool=false):
 	# need to stop it asking GameManager to go back to the main menu
 	if pause_menu == true:
 		is_pause_menu = true
+		# chnaging the game settings (number of rooms) doesn't affect the game once it has started so just hide it if in pause menu
+		$VBoxContainer/CenterContainer/VBoxContainer/GameSettings.hide()
 
 func _input(event):
 	if wait_key:

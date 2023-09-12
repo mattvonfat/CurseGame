@@ -11,6 +11,8 @@ func _process(_delta):
 	if Input.is_action_just_pressed("pause"):
 		if GameManager.is_game_paused():
 			hide()
+			$Controls.hide()
+			emit_signal("update_settings")
 			GameManager.game_unpaused()
 		else:
 			show()
