@@ -11,9 +11,7 @@ func _ready():
 	button.disabled = true
 
 func _on_Button_pressed():
-	var user_name = name_text.get_text()
-	var user_thing = thing_text.get_text()
-	GameManager.go_to_story(user_name, user_thing)
+	$ButtonClick.play()
 
 func _on_LineEdit_text_changed(new_text):
 	if new_text == "":
@@ -32,3 +30,13 @@ func _on_LineEdit2_text_changed(new_text):
 		thing_entered = true
 		if name_entered == true:
 			button.disabled = false
+
+
+func _on_ButtonClick_finished():
+	var user_name = name_text.get_text()
+	var user_thing = thing_text.get_text()
+	GameManager.go_to_story(user_name, user_thing)
+
+
+func _on_Button_mouse_entered():
+	$ButtonHover.play()

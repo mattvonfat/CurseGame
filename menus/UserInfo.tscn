@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://menus/UserInfo.gd" type="Script" id=1]
 [ext_resource path="res://images/level_select_background.png" type="Texture" id=2]
+[ext_resource path="res://sounds/rollover2.wav" type="AudioStream" id=3]
+[ext_resource path="res://sounds/click4.wav" type="AudioStream" id=4]
 
 [node name="UserInfo" type="Control"]
 anchor_right = 1.0
@@ -76,6 +78,15 @@ margin_bottom = 155.0
 size_flags_horizontal = 4
 text = "Let's Go!"
 
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="ButtonHover" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "GUI"
+
 [connection signal="text_changed" from="CenterContainer/VBoxContainer/LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="text_changed" from="CenterContainer/VBoxContainer/LineEdit2" to="." method="_on_LineEdit2_text_changed"]
+[connection signal="mouse_entered" from="CenterContainer/VBoxContainer/Button" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="finished" from="ButtonClick" to="." method="_on_ButtonClick_finished"]

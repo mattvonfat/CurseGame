@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://images/gui/key_back_hover.png" type="Texture" id=1]
 [ext_resource path="res://images/gui/control_back.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://menus/Controls.gd" type="Script" id=4]
 [ext_resource path="res://images/level_select_background.png" type="Texture" id=5]
 [ext_resource path="res://sounds/rollover2.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/click4.wav" type="AudioStream" id=7]
 
 [node name="Controls" type="Control"]
 anchor_right = 1.0
@@ -417,6 +418,9 @@ align = 1
 stream = ExtResource( 6 )
 bus = "GUI"
 
+[node name="ButtonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
 [connection signal="mouse_entered" from="VBoxContainer/MarginContainer/ReturnToMenuButton" to="." method="_on_ReturnToMenuButton_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/ReturnToMenuButton" to="." method="_on_ReturnToMenuButton_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ForwardKeyButton" to="." method="_on_button_mouse_entered"]
@@ -431,7 +435,9 @@ bus = "GUI"
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ShootKeyButton" to="." method="_on_control_key_button_pressed" binds= [ 4 ]]
 [connection signal="mouse_entered" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="VBoxContainer/CenterContainer/VBoxContainer/Controls/HBoxContainer/VBoxContainer2/ConvoKeyButton" to="." method="_on_control_key_button_pressed" binds= [ 5 ]]
+[connection signal="mouse_entered" from="VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2/LevelRooms" to="." method="_on_button_mouse_entered"]
 [connection signal="value_changed" from="VBoxContainer/CenterContainer/VBoxContainer/GameSettings/HBoxContainer/VBoxContainer2/LevelRooms" to="." method="_on_LevelRooms_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/MusicSlider" to="." method="_on_Music_Slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/SFXSlider" to="." method="_on_SFXSlider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/CenterContainer/VBoxContainer/SoundSettings/HBoxContainer/VBoxContainer2/GUISlider3" to="." method="_on_GUISlider3_value_changed"]
+[connection signal="finished" from="ButtonClick" to="." method="_on_ButtonClick_finished"]

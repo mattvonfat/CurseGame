@@ -34,3 +34,7 @@ func _on_SettingsButton_pressed():
 func _on_leave_controls_menu():
 	$Controls.hide()
 	emit_signal("update_settings")
+
+
+func _on_button_mouse_entered():
+	$AudioStreamPlayer.play()

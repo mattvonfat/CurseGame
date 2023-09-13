@@ -57,3 +57,7 @@ func _on_LevelButton_pressed(level_number):
 func _on_TempleSelect_pressed():
 	GameManager.load_level(selected_level)
 
+
+
+func _on_button_mouse_entered():
+	$AudioStreamPlayer.play()

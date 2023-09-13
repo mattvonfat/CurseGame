@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Archeologicaps.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://images/story/win_screen.png" type="Texture" id=2]
 [ext_resource path="res://menus/WinScreen.gd" type="Script" id=3]
+[ext_resource path="res://sounds/rollover2.wav" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 29
@@ -68,4 +69,9 @@ margin_bottom = 428.0
 align = 1
 valign = 1
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "GUI"
+
+[connection signal="mouse_entered" from="CanvasLayer/CenterContainer/VBoxContainer/CenterContainer/MainMenu" to="." method="_on_MainMenu_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/CenterContainer/MainMenu" to="." method="_on_MainMenu_pressed"]

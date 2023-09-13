@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://menus/LevelSelectScreen.gd" type="Script" id=1]
 [ext_resource path="res://Archeologicaps.ttf" type="DynamicFontData" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://new_buttongroup.tres" type="ButtonGroup" id=8]
 [ext_resource path="res://images/level_button_disabled.png" type="Texture" id=9]
 [ext_resource path="res://images/level_button_pressed.png" type="Texture" id=10]
+[ext_resource path="res://sounds/rollover2.wav" type="AudioStream" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -328,14 +329,22 @@ margin_top = 10.0
 margin_right = 300.0
 margin_bottom = 120.0
 
-[node name="CurseName" type="Label" parent="CanvasLayer/TextureRect/VBoxContainer/CenterContainer2/TextureRect/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/TextureRect/VBoxContainer/CenterContainer2/TextureRect/MarginContainer/VBoxContainer"]
 margin_right = 290.0
 margin_bottom = 14.0
+size_flags_vertical = 1
+text = "Curse:"
+align = 1
+
+[node name="CurseName" type="Label" parent="CanvasLayer/TextureRect/VBoxContainer/CenterContainer2/TextureRect/MarginContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 290.0
+margin_bottom = 32.0
 size_flags_vertical = 1
 align = 1
 
 [node name="CurseDescription" type="Label" parent="CanvasLayer/TextureRect/VBoxContainer/CenterContainer2/TextureRect/MarginContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 36.0
 margin_right = 290.0
 margin_bottom = 110.0
 size_flags_horizontal = 3
@@ -368,8 +377,17 @@ text = "Enter Temple"
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource( 3 )]
 visible = false
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+bus = "GUI"
+
+[connection signal="mouse_entered" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level1" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level1" to="." method="_on_LevelButton_pressed" binds= [ 1 ]]
+[connection signal="mouse_entered" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level2" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level2" to="." method="_on_LevelButton_pressed" binds= [ 2 ]]
+[connection signal="mouse_entered" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level3" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level3" to="." method="_on_LevelButton_pressed" binds= [ 3 ]]
+[connection signal="mouse_entered" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level4" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer/HBoxContainer/Level4" to="." method="_on_LevelButton_pressed" binds= [ 4 ]]
+[connection signal="mouse_entered" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer3/HBoxContainer2/TempleSelect" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/TextureRect/VBoxContainer/CenterContainer3/HBoxContainer2/TempleSelect" to="." method="_on_TempleSelect_pressed"]

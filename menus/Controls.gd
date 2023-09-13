@@ -28,6 +28,8 @@ var changes = false
 
 var is_pause_menu:bool = false
 
+var click_action # type of button that was clicked - if the back button then we need to go back to menu after sound finishes
+
 func _ready():
 	key_wait_panel.hide()
 	control_labels = [ up_key, down_key, left_key, right_key, shoot_key, convo_key ]
@@ -80,22 +82,20 @@ func _input(event):
 
 # called whenever user clicks to rebind a key
 func _on_control_key_button_pressed(key:int):
+	click_action = "CKEY"
+	$ButtonClick.play()
 	key_wait_panel.show()
 	wait_key = true
 	control_item = key
 
 func _on_ReturnToMenuButton_pressed():
-	if is_pause_menu == true:
-		# if we're in the pause menu then emit the leave menu signal but also check if we need to save and if so do it
-		# this is a quick fix as I don't want to rewrite everything and just want to add this in the pause menu
-		if changes == true:
-			GameManager.save_settings()
-		emit_signal("leave_menu")
-	else:
-		GameManager.return_to_menu(changes)
+	click_action = "RETURN"
+	$ButtonClick.play()
 
 
 func _on_LevelRooms_value_changed(value):
+	click_action = "ROOMS"
+	$ButtonClick.play()
 	changes = true
 	GameManager.rooms_per_level = value
 
@@ -103,16 +103,19 @@ func _on_LevelRooms_value_changed(value):
 func _on_Music_Slider_value_changed(value):
 	GameManager.music_volume = value
 	changes = true
+	GameManager.update_volumes()
 
 
 func _on_GUISlider3_value_changed(value):
 	GameManager.gui_volume = value
 	changes = true
+	GameManager.update_volumes()
 
 
 func _on_SFXSlider_value_changed(value):
 	GameManager.sfx_volume = value
 	changes = true
+	GameManager.update_volumes()
 
 
 func _on_ReturnToMenuButton_mouse_entered():
@@ -121,3 +124,15 @@ func _on_ReturnToMenuButton_mouse_entered():
 
 func _on_button_mouse_entered():
 	$AudioStreamPlayer.play()
+
+
+func _on_ButtonClick_finished():
+	if click_action == "RETURN":
+		if is_pause_menu == true:
+			# if we're in the pause menu then emit the leave menu signal but also check if we need to save and if so do it
+			# this is a quick fix as I don't want to rewrite everything and just want to add this in the pause menu
+			if changes == true:
+				GameManager.save_settings()
+			emit_signal("leave_menu")
+		else:
+			GameManager.return_to_menu(changes)
