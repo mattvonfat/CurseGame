@@ -47,29 +47,29 @@ custom_constants/margin_top = 130
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/VBoxContainer"]
 margin_top = 241.0
 margin_right = 640.0
-margin_bottom = 334.0
+margin_bottom = 246.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer/CenterContainer"]
-margin_left = 265.0
-margin_right = 375.0
-margin_bottom = 93.0
+margin_left = 320.0
+margin_right = 320.0
+margin_bottom = 5.0
 
 [node name="NewGame" type="Button" parent="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer"]
+visible = false
 margin_right = 110.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 110, 40 )
 text = "New Game"
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer"]
-margin_top = 44.0
-margin_right = 110.0
-margin_bottom = 49.0
+margin_bottom = 5.0
 custom_constants/margin_top = 5
 
 [node name="Controls" type="Button" parent="CanvasLayer/VBoxContainer/CenterContainer/VBoxContainer"]
-margin_top = 53.0
+visible = false
+margin_top = 9.0
 margin_right = 110.0
-margin_bottom = 93.0
+margin_bottom = 49.0
 rect_min_size = Vector2( 110, 40 )
 text = "Settings"
 
